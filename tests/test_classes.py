@@ -20,8 +20,10 @@ def test_init_category(test_category_1, test_category_2):
     )
     assert len(test_category_1.products) == 3
 
+    # Проверка количества категорий у каждого экземпляра класса Category
     assert test_category_1.category_count == 2
     assert test_category_2.category_count == 2
 
+    # Проверка количества товаров (экземпляров класса Product) в каждом экземпляре класса Category
     assert test_category_1.product_count == 3
     assert test_category_2.product_count == 3
