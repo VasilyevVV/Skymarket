@@ -22,10 +22,10 @@ def test_product_3():
 
 
 @pytest.fixture
-def test_category_1():
+def test_category_1(test_product_1, test_product_2, test_product_3):
     return Category(
         "Смартфоны",
-        "Смартфоны, как средство не только коммуникации," " но и получения дополнительных функций для удобства жизни",
+        "Смартфоны - средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [test_product_1, test_product_2, test_product_3],
     )
 
@@ -33,3 +33,15 @@ def test_category_1():
 @pytest.fixture
 def test_category_2():
     return Category("Телевизоры", "Современный телевизор, который позволяет наслаждаться просмотром")
+
+
+# Словарь для создания нового продукта
+@pytest.fixture
+def test_new_product_dict():
+    return {"name": "Xiaomi Redmi Note 15", "description": "128Gb, цвет: изумруд", "price": 15000.0, "quantity": 2}
+
+
+# Словарь для создания нового продукта с таким же именем
+@pytest.fixture
+def test_new_product_dict2():
+    return {"name": "Xiaomi Redmi Note 15", "description": "128Gb, цвет: изумруд", "price": 10000.0, "quantity": 4}
