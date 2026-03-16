@@ -83,3 +83,22 @@ def test_new_product_price(capsys, test_product_3):
     assert message1.out.strip() == "Цена не должна быть нулевая или отрицательная"
     test_product_3.price = 18000.0
     assert test_product_3.price == 18000.0
+
+
+def test_produc_str(test_product_1, test_product_2, test_product_3):
+    """Тест строкового представления для класса Product"""
+    assert str(test_product_1) == "Samsung Galaxy S23 Ultra, 108000.0 руб. Остаток: 5 шт."
+    assert str(test_product_2) == "Xiaomi Redmi Note 14, 12000.0 руб. Остаток: 14 шт."
+    assert str(test_product_3) == "Infinix HOT 50, 11500.0 руб. Остаток: 10 шт."
+
+
+def test_category_str(test_category_1):
+    """Тест строкового представления для класса Category"""
+    assert str(test_category_1) == "Смартфоны, количество продуктов: 29 шт."
+
+
+def test_addition_products(test_product_1, test_product_2, test_product_3):
+    """Тест магического метода __add__ для класса Product"""
+    assert test_product_1 + test_product_2 == 708000.0
+    assert test_product_1 + test_product_3 == 655000.0
+    assert test_product_2 + test_product_3 == 283000.0

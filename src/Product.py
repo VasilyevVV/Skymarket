@@ -12,9 +12,23 @@ class Product:
         self.quantity = quantity
         self.__product_list.append(self)
 
+    def __str__(self):
+        """
+        Строковое отображение для класса Product в формате:
+        <Название продукта>, <Цена> руб. Остаток: <Х> шт.
+        """
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """
+        Метод для сложения продуктов. Стоимость каждого товара перемножается на его количество.
+        Возвращает полную стоимость всех складываемых товаров.
+        """
+        return self.quantity * self.price + other.quantity * other.price
+
     @property
     def price(self):
-        """ "Метод-геттер для получения цены товара"""
+        """Метод-геттер для получения цены товара"""
         return self.__price
 
     @price.setter
