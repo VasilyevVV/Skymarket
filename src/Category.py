@@ -15,13 +15,29 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(products) if products else 0
 
+    def __str__(self):
+        """Строковое отображение для класса Category в виде:
+        <Название категории>, количество продуктов: <Х> шт.
+        Количество продуктов считается из общего числа всех продуктов в списке товаров категории.
+        Общее количество складывается из атрибута "Количества" каждого товара.
+        """
+        total_prod_count = 0
+        for product in self.product_in_category:
+            total_prod_count += product.quantity
+        return f"{self.name}, количество продуктов: {total_prod_count} шт."
+
     @property
     def products(self):
         """Метод-геттер возвращает строку со всеми продуктами, используя приватный атрибут '__products'"""
         product_str = ""
         for product in self.__products:
-            product_str += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            product_str += f"{str(product)}\n"
         return product_str
+
+    @property
+    def product_in_category(self):
+        """Метод-геттер для доступа к списку продуктов в категории"""
+        return self.__products
 
     def add_product(self, new_product: Product):
         """Метод для добавления продукта в список товаров в категории - атрибут products"""
@@ -30,8 +46,3 @@ class Category:
             self.product_count += 1
         else:
             raise ValueError("Можно добавлять только объекты класса Product")
-
-    @property
-    def product_in_category(self):
-        """Метод-геттер для доступа к списку продуктов в категории"""
-        return self.__products
