@@ -45,4 +45,5 @@ class Category:
             self.__products.append(new_product)
             self.product_count += 1
         else:
-            raise ValueError("Можно добавлять только объекты класса Product")
+            raise TypeError("Можно добавлять только объекты класса Product или его подклассы")
+            # raise ValueError("Можно добавлять только объекты класса Product")

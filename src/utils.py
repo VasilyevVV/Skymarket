@@ -31,7 +31,7 @@ def create_objects_from_json(dict_data):
             # цикл по продуктам в категории
             for product in category["products"]:
                 # Распаковка значений словаря - создание объекта Product и добавление его в список.
-                products.append(Product(**product))
+                products.append(Product("Россия", **product))
             # обновление списка продуктов для категории
             category["products"] = products
             # создание объекта Category и добавление его в список

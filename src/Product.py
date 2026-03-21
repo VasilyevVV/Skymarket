@@ -65,3 +65,57 @@ class Product:
         # Альтернативный вариант создания объекта класса Product - распаковка словаря (протестирован)
         # product_instance = cls(**new_product_dict)
         return product_instance
+
+
+class Smartphone(Product):
+    """Конструктор класса Smartphone - наследника класса Product"""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        efficiency: float,
+        model: str,
+        memory: int,
+        color: str,
+    ):
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+    def __add__(self, other):
+        """Сложение для объектов класса Smartphone"""
+        if type(other) is Smartphone:
+            return self.quantity * self.price + other.quantity * other.price
+        else:
+            raise TypeError("Операция может применяться только к смартфонам")
+
+
+class LawnGrass(Product):
+    """Конструктор класса LawnGrass - наследника класса Product"""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        country: str,
+        germination_period: str,
+        color: str,
+    ):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
+
+    def __add__(self, other):
+        """Сложение для объектов класса LawnGrass"""
+        if type(other) is LawnGrass:
+            return self.quantity * self.price + other.quantity * other.price
+        else:
+            raise TypeError("Операция может применяться только к товарам класса LawnGrass")
