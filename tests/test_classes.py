@@ -43,9 +43,8 @@ def test_add_product(test_category_1, test_product_3):
 
 def test_add_incorrect_product(test_category_1):
     """Тест добавления в категорию объекта, который не является классом Product"""
-    with pytest.raises(TypeError) as exc_info:
+    with pytest.raises(TypeError, match="Можно добавлять только объекты класса Product или его подклассы"):
         test_category_1.add_product(["some_product"])
-    assert str(exc_info.value) == "Можно добавлять только объекты класса Product или его подклассы"
 
 
 def test_new_product(test_new_product_dict):
@@ -134,9 +133,8 @@ def test_smartphone_add(test_smartphone_1, test_smartphone_2):
 
 def test_add_smartphone_error(test_smartphone_1, test_lawgrass_1):
     """ "Тест ошибки при операции сложения для класса Smartphone"""
-    with pytest.raises(TypeError) as exc_info:
+    with pytest.raises(TypeError, match="Операция может применяться только к смартфонам"):
         result = test_smartphone_1 + test_lawgrass_1
-    assert str(exc_info.value) == "Операция может применяться только к смартфонам"
 
 
 def test_lawgrass_add(test_lawgrass_1, test_lawgrass_2):
@@ -146,6 +144,5 @@ def test_lawgrass_add(test_lawgrass_1, test_lawgrass_2):
 
 def test_lawgrass_add_error(test_lawgrass_1, test_product_3):
     """ "Тест ошибки при операции сложения для класса LawnGrass"""
-    with pytest.raises(TypeError) as exc_info:
+    with pytest.raises(TypeError, match="Операция может применяться только к товарам класса LawnGrass"):
         result = test_lawgrass_1 + test_product_3
-    assert str(exc_info.value) == "Операция может применяться только к товарам класса LawnGrass"

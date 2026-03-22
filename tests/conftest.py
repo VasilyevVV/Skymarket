@@ -47,6 +47,7 @@ def test_new_product_dict2():
     return {"name": "Xiaomi Redmi Note 15", "description": "128Gb, цвет: изумруд", "price": 10000.0, "quantity": 4}
 
 
+# Фикстура для тестов класса Smartphone
 @pytest.fixture
 def test_smartphone_1():
     return Smartphone(
@@ -61,16 +62,19 @@ def test_smartphone_1():
     )
 
 
+# Фикстура для тестов класса Smartphone
 @pytest.fixture
 def test_smartphone_2():
     return Smartphone("Xiaomi Redmi Note 15", "1024GB, Синий", 25000.0, 10, 90.3, "Note 15", 1024, "Синий")
 
 
+# Фикстура для тестов класса LawnGrass
 @pytest.fixture
 def test_lawgrass_1():
     return LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
 
 
+# Фикстура для тестов класса LawnGrass
 @pytest.fixture
 def test_lawgrass_2():
     return LawnGrass("Клевер газонный", "Цветочный газон", 200.0, 10, "Россия", "14 дней", "Белый, розовый")

@@ -8,12 +8,13 @@ from src.Product import Product
 def read_json(path: str) -> dict:
     """Функция загружает данные из файла в формате JSON и преобразует их в словарь (dict)"""
     full_path = os.path.abspath(path)
+    data_dict = {}
     try:
         with open(full_path, "r", encoding="UTF-8") as file:
             data_dict = json.load(file)
             return data_dict
     except FileNotFoundError:
-        return {}
+        return data_dict
 
 
 def create_objects_from_json(dict_data):
@@ -31,7 +32,7 @@ def create_objects_from_json(dict_data):
             # цикл по продуктам в категории
             for product in category["products"]:
                 # Распаковка значений словаря - создание объекта Product и добавление его в список.
-                products.append(Product("Россия", **product))
+                products.append(Product(**product))
             # обновление списка продуктов для категории
             category["products"] = products
             # создание объекта Category и добавление его в список

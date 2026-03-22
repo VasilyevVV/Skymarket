@@ -6,6 +6,7 @@ class Product:
     __product_list: list = []
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
+        """Конструктор класса Product"""
         self.name = name
         self.description = description
         self.__price = price
@@ -24,7 +25,10 @@ class Product:
         Метод для сложения продуктов. Стоимость каждого товара перемножается на его количество.
         Возвращает полную стоимость всех складываемых товаров.
         """
-        return self.quantity * self.price + other.quantity * other.price
+        if type(other) is Product:
+            return self.quantity * self.price + other.quantity * other.price
+        else:
+            raise TypeError
 
     @property
     def price(self):
@@ -56,31 +60,20 @@ class Product:
                 product.quantity += new_product_dict["quantity"]
                 product.price = max(product.price, new_product_dict["price"])
                 return product
-        product_instance = cls(
-            name=new_product_dict["name"],
-            description=new_product_dict.get("description", "Описание отсутствует"),
-            price=new_product_dict.get("price", 0.0),
-            quantity=new_product_dict.get("quantity", 0),
-        )
+        product_instance = cls(name=new_product_dict["name"],
+                               description=new_product_dict.get("description", "Описание отсутствует"),
+                               price=new_product_dict.get("price", 0.0),
+                               quantity=new_product_dict.get("quantity", 0),
+                               )
         # Альтернативный вариант создания объекта класса Product - распаковка словаря (протестирован)
         # product_instance = cls(**new_product_dict)
         return product_instance
 
 
 class Smartphone(Product):
-    """Конструктор класса Smartphone - наследника класса Product"""
 
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        efficiency: float,
-        model: str,
-        memory: int,
-        color: str,
-    ):
+    def __init__(self, name: str, description: str, price: float, quantity: int, efficiency, model, memory, color):
+        """Конструктор класса Smartphone - наследника класса Product"""
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
         self.model = model
@@ -96,18 +89,9 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-    """Конструктор класса LawnGrass - наследника класса Product"""
 
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        price: float,
-        quantity: int,
-        country: str,
-        germination_period: str,
-        color: str,
-    ):
+    def __init__(self, name: str, description: str, price: float, quantity: int, country, germination_period, color):
+        """Конструктор класса LawnGrass - наследника класса Product"""
         super().__init__(name, description, price, quantity)
         self.country = country
         self.germination_period = germination_period
