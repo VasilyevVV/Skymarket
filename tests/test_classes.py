@@ -43,9 +43,8 @@ def test_add_product(test_category_1, test_product_3):
 
 def test_add_incorrect_product(test_category_1):
     """Тест добавления в категорию объекта, который не является классом Product"""
-    with pytest.raises(ValueError) as exc_info:
+    with pytest.raises(TypeError, match="Можно добавлять только объекты класса Product или его подклассы"):
         test_category_1.add_product(["some_product"])
-    assert str(exc_info.value) == "Можно добавлять только объекты класса Product"
 
 
 def test_new_product(test_new_product_dict):
@@ -85,7 +84,7 @@ def test_new_product_price(capsys, test_product_3):
     assert test_product_3.price == 18000.0
 
 
-def test_produc_str(test_product_1, test_product_2, test_product_3):
+def test_product_str(test_product_1, test_product_2, test_product_3):
     """Тест строкового представления для класса Product"""
     assert str(test_product_1) == "Samsung Galaxy S23 Ultra, 108000.0 руб. Остаток: 5 шт."
     assert str(test_product_2) == "Xiaomi Redmi Note 14, 12000.0 руб. Остаток: 14 шт."
@@ -102,3 +101,48 @@ def test_addition_products(test_product_1, test_product_2, test_product_3):
     assert test_product_1 + test_product_2 == 708000.0
     assert test_product_1 + test_product_3 == 655000.0
     assert test_product_2 + test_product_3 == 283000.0
+
+
+def test_smartphone_init(test_smartphone_2):
+    """Тест конструктора класса Smartphone"""
+    assert test_smartphone_2.name == "Xiaomi Redmi Note 15"
+    assert test_smartphone_2.description == "1024GB, Синий"
+    assert test_smartphone_2.price == 25000.0
+    assert test_smartphone_2.quantity == 10
+    assert test_smartphone_2.efficiency == 90.3
+    assert test_smartphone_2.model == "Note 15"
+    assert test_smartphone_2.memory == 1024
+    assert test_smartphone_2.color == "Синий"
+
+
+def test_lawgrass_init(test_lawgrass_2):
+    """Тест конструктора класса LawnGrass"""
+    assert test_lawgrass_2.name == "Клевер газонный"
+    assert test_lawgrass_2.description == "Цветочный газон"
+    assert test_lawgrass_2.price == 200.0
+    assert test_lawgrass_2.quantity == 10
+    assert test_lawgrass_2.country == "Россия"
+    assert test_lawgrass_2.germination_period == "14 дней"
+    assert test_lawgrass_2.color == "Белый, розовый"
+
+
+def test_smartphone_add(test_smartphone_1, test_smartphone_2):
+    """Тест операции сложения для класса Smartphone"""
+    assert test_smartphone_1 + test_smartphone_2 == 790000.0
+
+
+def test_add_smartphone_error(test_smartphone_1, test_lawgrass_1):
+    """ "Тест ошибки при операции сложения для класса Smartphone"""
+    with pytest.raises(TypeError, match="Операция может применяться только к смартфонам"):
+        result = test_smartphone_1 + test_lawgrass_1
+
+
+def test_lawgrass_add(test_lawgrass_1, test_lawgrass_2):
+    """Тест операции сложения для класса LawnGrass"""
+    assert test_lawgrass_1 + test_lawgrass_2 == 12000.0
+
+
+def test_lawgrass_add_error(test_lawgrass_1, test_product_3):
+    """ "Тест ошибки при операции сложения для класса LawnGrass"""
+    with pytest.raises(TypeError, match="Операция может применяться только к товарам класса LawnGrass"):
+        result = test_lawgrass_1 + test_product_3

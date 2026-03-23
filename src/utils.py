@@ -8,12 +8,13 @@ from src.Product import Product
 def read_json(path: str) -> dict:
     """Функция загружает данные из файла в формате JSON и преобразует их в словарь (dict)"""
     full_path = os.path.abspath(path)
+    data_dict = {}
     try:
         with open(full_path, "r", encoding="UTF-8") as file:
             data_dict = json.load(file)
             return data_dict
     except FileNotFoundError:
-        return {}
+        return data_dict
 
 
 def create_objects_from_json(dict_data):
