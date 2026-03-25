@@ -1,5 +1,6 @@
 import os
-from src.utils import read_json, create_objects_from_json
+
+from src.utils import create_objects_from_json, read_json
 
 # Путь к директории проекта с тестовым файлом JSON
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))

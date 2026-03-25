@@ -1,4 +1,8 @@
-class Product:
+from src.base_product import BaseProduct
+from src.print_mixin import PrintMixin
+
+
+class Product(BaseProduct, PrintMixin):
     name: str
     description: str
     quantity: int
@@ -12,6 +16,7 @@ class Product:
         self.__price = price
         self.quantity = quantity
         self.__product_list.append(self)
+        super().__init__()
 
     def __str__(self):
         """
@@ -60,11 +65,12 @@ class Product:
                 product.quantity += new_product_dict["quantity"]
                 product.price = max(product.price, new_product_dict["price"])
                 return product
-        product_instance = cls(name=new_product_dict["name"],
-                               description=new_product_dict.get("description", "Описание отсутствует"),
-                               price=new_product_dict.get("price", 0.0),
-                               quantity=new_product_dict.get("quantity", 0),
-                               )
+        product_instance = cls(
+            name=new_product_dict["name"],
+            description=new_product_dict.get("description", "Описание отсутствует"),
+            price=new_product_dict.get("price", 0.0),
+            quantity=new_product_dict.get("quantity", 0),
+        )
         # Альтернативный вариант создания объекта класса Product - распаковка словаря (протестирован)
         # product_instance = cls(**new_product_dict)
         return product_instance
