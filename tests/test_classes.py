@@ -79,7 +79,7 @@ def test_new_product_price(capsys, test_product_3):
     """Тест изменения цены на новую, больше текущей, и на ввод отрицательной цены"""
     test_product_3.price = -1000
     message1 = capsys.readouterr()
-    assert message1.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    assert message1.out.strip().split("\n")[-1] == "Цена не должна быть нулевая или отрицательная"
     test_product_3.price = 18000.0
     assert test_product_3.price == 18000.0
 
@@ -101,6 +101,12 @@ def test_addition_products(test_product_1, test_product_2, test_product_3):
     assert test_product_1 + test_product_2 == 708000.0
     assert test_product_1 + test_product_3 == 655000.0
     assert test_product_2 + test_product_3 == 283000.0
+
+
+def test_add_product_error(test_product_2):
+    """ "Тест ошибки при операции сложения для класса Product"""
+    with pytest.raises(TypeError):
+        result = test_product_2 + "NoProduct"
 
 
 def test_smartphone_init(test_smartphone_2):
@@ -131,7 +137,7 @@ def test_smartphone_add(test_smartphone_1, test_smartphone_2):
     assert test_smartphone_1 + test_smartphone_2 == 790000.0
 
 
-def test_add_smartphone_error(test_smartphone_1, test_lawgrass_1):
+def test_smartphone_add_error(test_smartphone_1, test_lawgrass_1):
     """ "Тест ошибки при операции сложения для класса Smartphone"""
     with pytest.raises(TypeError, match="Операция может применяться только к смартфонам"):
         result = test_smartphone_1 + test_lawgrass_1
