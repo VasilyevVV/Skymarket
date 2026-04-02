@@ -5,7 +5,7 @@ from src.Category import Category
 from src.Product import Product
 
 
-def read_json(path: str) -> dict:
+def read_json_file(path: str):
     """Функция загружает данные из файла в формате JSON и преобразует их в словарь (dict)"""
     full_path = os.path.abspath(path)
     data_dict = {}
@@ -20,7 +20,7 @@ def read_json(path: str) -> dict:
 def create_objects_from_json(dict_data):
     """
     Функция принимает данные в виде словаря и создаёт объекты - экземпляры классов Category и Product
-    на основе чтения данных из словаря.
+    на основе чтения данных из словаря на входе.
     """
     if dict_data != {}:
         # пустой список для хранения объектов Category

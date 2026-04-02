@@ -46,4 +46,10 @@ class Category:
             self.product_count += 1
         else:
             raise TypeError("Можно добавлять только объекты класса Product или его подклассы")
-            # raise ValueError("Можно добавлять только объекты класса Product")
+
+    def middle_price(self):
+        """Метод расчёта средней цены товаров в категории. Если в категории товары отсутствуют, возвращается 0"""
+        try:
+            return round(sum(product.price for product in self.__products) / len(self.product_in_category), 2)
+        except ZeroDivisionError:
+            return 0

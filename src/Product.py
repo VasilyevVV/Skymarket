@@ -10,10 +10,12 @@ class Product(BaseProduct, PrintMixin):
     __product_list: list = []
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        """Конструктор класса Product"""
+        """Конструктор класса Product. При попытке создания товара с нулевым количеством, вызывается исключение"""
         self.name = name
         self.description = description
         self.__price = price
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.quantity = quantity
         self.__product_list.append(self)
         super().__init__()
