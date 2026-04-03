@@ -1,19 +1,29 @@
 import pytest
 
-from src.Product import Product
+from src.Product import LawnGrass, Product, Smartphone
 
 
 def test_init_product(test_product_1, test_product_2):
     """Тест конструктора класса Product"""
-    assert test_product_1.name == "Samsung Galaxy S23 Ultra"
-    assert test_product_1.description == "256GB, Серый цвет, 200MP камера"
+    assert test_product_1.name == "Samsung Galaxy S23"
+    assert test_product_1.description == "256GB, Серый, 200MP камера"
     assert test_product_1.price == 108000.0
     assert test_product_1.quantity == 5
 
     assert test_product_2.name == "Xiaomi Redmi Note 14"
     assert test_product_2.description == "1024GB, Синий"
-    assert test_product_2.price == 12000.0
+    assert test_product_2.price == 12500.0
     assert test_product_2.quantity == 14
+
+
+def test_init_product_zero_quantity():
+    """Тест создания товара с нулевым количеством"""
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Брак", "Неверное количество", 100.0, 0)
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Smartphone("Xiaomi", "512GB, Синий", 5000.0, 0, 90.3, "Note", 512, "Белый")
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        LawnGrass("Трава", "Нет маркировки", 10.0, 0, "?", 0, "?")
 
 
 def test_init_category(test_category_1, test_category_2):
@@ -21,7 +31,7 @@ def test_init_category(test_category_1, test_category_2):
     assert test_category_1.name == "Смартфоны"
     assert (
         test_category_1.description
-        == "Смартфоны - средство не только коммуникации, но и получения дополнительных функций для удобства жизни"
+        == "Смартфоны - средство не только коммуникации, но и получения многих функций для удобства жизни"
     )
     assert len(test_category_1.product_in_category) == 3
 
@@ -69,8 +79,8 @@ def test_new_product_exist(test_new_product_dict2):
 def test_products_property(test_category_1):
     """Тест приватного свойства '__products' в классе Category"""
     assert test_category_1.products == (
-        "Samsung Galaxy S23 Ultra, 108000.0 руб. Остаток: 5 шт.\n"
-        "Xiaomi Redmi Note 14, 12000.0 руб. Остаток: 14 шт.\n"
+        "Samsung Galaxy S23, 108000.0 руб. Остаток: 5 шт.\n"
+        "Xiaomi Redmi Note 14, 12500.0 руб. Остаток: 14 шт.\n"
         "Infinix HOT 50, 11500.0 руб. Остаток: 10 шт.\n"
     )
 
@@ -86,8 +96,8 @@ def test_new_product_price(capsys, test_product_3):
 
 def test_product_str(test_product_1, test_product_2, test_product_3):
     """Тест строкового представления для класса Product"""
-    assert str(test_product_1) == "Samsung Galaxy S23 Ultra, 108000.0 руб. Остаток: 5 шт."
-    assert str(test_product_2) == "Xiaomi Redmi Note 14, 12000.0 руб. Остаток: 14 шт."
+    assert str(test_product_1) == "Samsung Galaxy S23, 108000.0 руб. Остаток: 5 шт."
+    assert str(test_product_2) == "Xiaomi Redmi Note 14, 12500.0 руб. Остаток: 14 шт."
     assert str(test_product_3) == "Infinix HOT 50, 11500.0 руб. Остаток: 10 шт."
 
 
@@ -98,9 +108,9 @@ def test_category_str(test_category_1):
 
 def test_addition_products(test_product_1, test_product_2, test_product_3):
     """Тест магического метода __add__ для класса Product"""
-    assert test_product_1 + test_product_2 == 708000.0
+    assert test_product_1 + test_product_2 == 715000.0
     assert test_product_1 + test_product_3 == 655000.0
-    assert test_product_2 + test_product_3 == 283000.0
+    assert test_product_2 + test_product_3 == 290000.0
 
 
 def test_add_product_error(test_product_2):
@@ -149,6 +159,12 @@ def test_lawgrass_add(test_lawgrass_1, test_lawgrass_2):
 
 
 def test_lawgrass_add_error(test_lawgrass_1, test_product_3):
-    """ "Тест ошибки при операции сложения для класса LawnGrass"""
+    """Тест ошибки операции сложения для класса LawnGrass"""
     with pytest.raises(TypeError, match="Операция может применяться только к товарам класса LawnGrass"):
         result = test_lawgrass_1 + test_product_3
+
+
+def test_middle_price(test_category_1, test_category_2):
+    """Тест расчёта средней цены для товаров в категории"""
+    assert test_category_1.middle_price() == 44000.00
+    assert test_category_2.middle_price() == 0
